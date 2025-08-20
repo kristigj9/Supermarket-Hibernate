@@ -6,6 +6,8 @@ import com.supermarket.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.List;
+
 public class OrderItemRepository {
 
     public void saveOrderitemes(OrderItem Ot){
@@ -55,5 +57,20 @@ public class OrderItemRepository {
             e.printStackTrace();
         }
     }
+
+
+
+    public List<OrderItem> findAll() {
+        List<OrderItem> orderItems = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            orderItems = session.createQuery("FROM OrderItem", OrderItem.class).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return orderItems;
+    }
+
 
 }

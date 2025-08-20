@@ -1,11 +1,14 @@
 package com.supermarket.repositories;
 
+import com.supermarket.entity.Customer;
 import com.supermarket.entity.Order;
 import com.supermarket.entity.OrderItem;
 import com.supermarket.entity.Product;
 import com.supermarket.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.List;
 
 public class ProductRepository {
 
@@ -73,5 +76,20 @@ public class ProductRepository {
             e.printStackTrace();
         }
     }
+
+
+    public List<Product> findAll() {
+        List<Product> products = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            products = session.createQuery("FROM Product", Product.class).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return products;
+    }
+
+
 }
 

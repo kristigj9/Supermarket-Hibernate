@@ -7,6 +7,8 @@ import com.supermarket.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.List;
+
 public class CustomerRepository {
 
     public void save(Customer c) {
@@ -73,5 +75,23 @@ public class CustomerRepository {
             e.printStackTrace();
         }
     }
+
+
+
+
+    public List<Customer> findAll() {
+        List<Customer> customers = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            customers = session.createQuery("FROM Customer", Customer.class).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return customers;
+    }
+
 }
+
+
 
