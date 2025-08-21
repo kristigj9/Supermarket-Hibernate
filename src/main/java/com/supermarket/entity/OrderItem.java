@@ -72,7 +72,14 @@ public class OrderItem {
     }
 
 
-
-
-
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", order=" + order +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                ", priceAtPurchase=" + priceAtPurchase +
+                '}';
+    }
 }

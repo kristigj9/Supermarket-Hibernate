@@ -66,6 +66,7 @@ public class Order {
 
     public LocalDate getOrderDate() {
         return orderDate;
+
     }
 
     public void setOrderDate(LocalDate orderDate) {
@@ -90,6 +91,18 @@ public class Order {
 
     public List<OrderItem> getItems() {
         return items;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", orderDate=" + orderDate +
+                ", status=" + status +
+                ", total=" + total +
+                ", items=" + items +
+                '}';
     }
 
     public void setItems(List<OrderItem> items) {

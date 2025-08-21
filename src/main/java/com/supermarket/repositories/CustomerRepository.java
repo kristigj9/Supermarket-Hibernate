@@ -63,7 +63,6 @@ public class CustomerRepository {
         }
     }
 
-
     public void UpdateCustomer(Customer customer) {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

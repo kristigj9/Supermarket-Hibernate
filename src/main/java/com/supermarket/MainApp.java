@@ -84,6 +84,8 @@ public class MainApp {
             System.out.println("ID: " + c.getId() + ", Emri: " + c.getName());
         }
 
+
+
         List<Customer> customerList=new ArrayList<>();
         customerList.add(c1);
         customerList.add(c2);
@@ -92,7 +94,6 @@ public class MainApp {
         for (Customer customer1:customerList){
             customerRepository.save(customer1);
         }
-
         //___________________Orders________________________________
         LocalDate orederDate = LocalDate.parse("2024-05-05");// yyyy-MM-dd
 
@@ -104,7 +105,7 @@ public class MainApp {
         //orderRepository.saveOrder(order);
         //orderRepository.deleteOrder(order);
         // orderRepository.deleteOrderByID(9);
-        //orderRepository.findOrederById(10);
+        orderRepository.findOrederById(10);
         //if (order != null) {System.out.println("Order u gjet: ");} else {System.out.println("Order  nuk ekziston");}
         //orderRepository.saveOrUpdateOrder(order);
         //Order order1 = orderRepository.findOrederById(10);
@@ -113,19 +114,40 @@ public class MainApp {
 
         OrderRepository orderRepo = new OrderRepository();
         List<Order> orders = orderRepo.findAll();
-
+       /// Ndryshoni statusin e porosisë (PENDING → PAID).
         for (Order o : orders) {
             System.out.println("ID: " + o.getId() + ", Status: " + o.getStatus());
+            if (o.getStatus() == OrderStatus.valueOf("PENDING")){
+                o.setStatus(OrderStatus.PAID);
+                orderRepository.UpdateOrder(o);
+            }
         }
 
-        List<Order> orderList = new ArrayList<>();
+        String Client ="Kristi";
+        for (Order o : orders){
+            if (o.getCustomer().getName().equals(Client)){
+                System.out.println("Order ID: " + o.getId() +
+                        ", Data: " + o.getOrderDate());
+            }
+        }
+
+
+            List<Order> orderList = new ArrayList<>();
         orderList.add(order1);
         orderList.add(order2);
         for (Order o:orderList){
             orderRepository.saveOrder(o);
         }
+        for (Order o : orders) {
+            for (OrderItem item : o.getItems()) {
+                System.out.println("   - Produkt: " + item.getProduct().getName() +
+                        ", Sasia: " + item.getQuantity());
 
-        //________________________OrderItems______________________________________
+            }
+        }
+
+
+            //________________________OrderItems______________________________________
         OrderItem orderItem1 = new OrderItem(order1, p1, 5);
         OrderItem orderItem2 = new OrderItem(order1, p2, 3);
         OrderItem orderItem3 = new OrderItem(order1, p6, 1);
@@ -160,7 +182,6 @@ public class MainApp {
            orderItemRepository.saveOrderitemes(ot1);}
 
     }
-
 
 
 
